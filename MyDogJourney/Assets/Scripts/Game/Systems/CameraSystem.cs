@@ -6,6 +6,7 @@ using TECS;
 public class CameraSystem : TECSSystem<CameraSystem>
 {
     public Camera MainCamera { get; private set; }
+
     public CameraSystem()
     {
         MainCamera = Camera.main;

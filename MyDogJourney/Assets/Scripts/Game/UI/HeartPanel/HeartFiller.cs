@@ -7,6 +7,6 @@ public class HeartFiller : MonoBehaviour
     [SerializeField] private GameObject filler;
     public void SetFill(bool isOn)
     {
-        filler.SetActive(isOn);
+        gameObject.SetActive(isOn);
     }
 }
