@@ -19,6 +19,8 @@ public class PlayerEntity : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRd;
 
+    private Frame frame;
+
     private LevelEntity Level => LevelSystem.Inst.CurLevel;
     private PlayerInputSystem Inputs => PlayerInputSystem.Inst;
     // Start is called before the first frame update
@@ -41,11 +43,12 @@ public class PlayerEntity : MonoBehaviour
 
         if (Inputs.isCapture)
         {
-            UISystem.Inst.PlayCutPictureEffect(()=>
-            {
-                
-            });
+            UISystem.Inst.PlayCutPictureEffect();
             CaptureSystem.Inst.CreateCapture(this);
+            if (frame)
+            {
+                frame.Activate(true);
+            }
         }
 
         if (transform.position.y < -7f)
@@ -101,6 +104,16 @@ public class PlayerEntity : MonoBehaviour
     public Vector3 GetSpritePos()
     {
         return spriteRd.transform.position;
+    }
+
+    public void OnEnterFrame(Frame frame)
+    {
+        this.frame = frame;
+    }
+
+    public void OnExitFrame(Frame frame)
+    {
+        this.frame = null;
     }
 
     private void Jump()

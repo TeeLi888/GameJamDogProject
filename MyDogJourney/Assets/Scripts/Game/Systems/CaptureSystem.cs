@@ -28,7 +28,10 @@ public class CaptureSystem : TECSSystem<CaptureSystem>
 
     public void ReturnCapture(Capture capture)
     {
-        capturePool.Add(capture.gameObject);
+        if (capture.gameObject.activeSelf)
+        {
+            capturePool.Add(capture.gameObject);
+        }
     }
 
     private GameObject CreateCaptureGO()
