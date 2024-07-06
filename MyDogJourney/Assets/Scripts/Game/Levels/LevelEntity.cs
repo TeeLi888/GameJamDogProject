@@ -12,4 +12,5 @@ public class LevelEntity : MonoBehaviour
     public virtual void ResetLevel(PlayerEntity player) { }
     public virtual void AttachCapture(Capture capture) { }
     public virtual void ClearCaptures() { }
+    public virtual void OnSavePoint(SavePoint point) { }
 }

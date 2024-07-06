@@ -7,12 +7,19 @@ public class CommonLevelEntity : LevelEntity
     public SavePoint savePoint;
 
     private List<Capture> captures = new List<Capture>();
-    
+
+    public SavePoint CurSavePoint { get; set; }
+
+    private void Start()
+    {
+        CurSavePoint = savePoint;
+    }
+
 
     public override void Respawn(PlayerEntity player)
     {
         base.Respawn(player);
-        player.transform.position = savePoint.GetPlayerSpawnPos();
+        player.transform.position = CurSavePoint.GetPlayerSpawnPos();
         player.OnRespawn();
     }
 
@@ -37,5 +44,11 @@ public class CommonLevelEntity : LevelEntity
         {
             CaptureSystem.Inst.ReturnCapture(captures[i]);
         }
+    }
+
+    public override void OnSavePoint(SavePoint point)
+    {
+        base.OnSavePoint(point);
+        CurSavePoint = point;
     }
 }
