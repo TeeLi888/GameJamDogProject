@@ -6,6 +6,7 @@ public class SavePoint : MonoBehaviour
 {
     public int id;
     public bool isTouched;
+    [SerializeField] private Animator flagAnimator;
     [SerializeField] private Transform spawnPoint;
 
     public Vector3 GetPlayerSpawnPos()
@@ -20,9 +21,15 @@ public class SavePoint : MonoBehaviour
             if (!isTouched)
             {
                 isTouched = true;
+                PlayFalgAnim();
                 LevelSystem.Inst.CurLevel.OnSavePoint(this);
             }
         }
         
+    }
+
+    private void PlayFalgAnim()
+    {
+        flagAnimator.Play("Flag_start");
     }
 }
