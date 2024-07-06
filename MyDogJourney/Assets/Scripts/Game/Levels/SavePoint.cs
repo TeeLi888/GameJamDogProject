@@ -16,12 +16,14 @@ public class SavePoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponentInParent<PlayerEntity>())
+        PlayerEntity player = collision.gameObject.GetComponentInParent<PlayerEntity>();
+        if (player)
         {
             if (!isTouched)
             {
                 isTouched = true;
                 PlayFalgAnim();
+                player.OnSavePoint();
                 LevelSystem.Inst.CurLevel.OnSavePoint(this);
             }
         }
