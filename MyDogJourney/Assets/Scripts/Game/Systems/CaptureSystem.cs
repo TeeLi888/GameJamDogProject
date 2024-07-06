@@ -21,6 +21,7 @@ public class CaptureSystem : TECSSystem<CaptureSystem>
         GameObject captureGo = capturePool.Pop();
         captureGo.transform.position = player.transform.position;
         Capture capture = captureGo.GetComponent<Capture>();
+        capture.SetCapture(player);
         LevelSystem.Inst.CurLevel.AttachCapture(capture);
         return capture;
     }

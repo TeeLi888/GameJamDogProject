@@ -17,6 +17,6 @@ public class PlayerInputSystem : TECSMonoSystem<PlayerInputSystem>
         axis = new Vector2(axisx, axisy);
 
         isJump = Input.GetKeyDown(KeyCode.Space);
-        isCapture = Input.GetKeyDown(KeyCode.K);
+        isCapture = Input.GetMouseButtonDown(0);
     }
 }

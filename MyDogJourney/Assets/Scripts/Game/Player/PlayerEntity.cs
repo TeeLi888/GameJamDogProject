@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +16,17 @@ public class PlayerEntity : MonoBehaviour
     private int jumpCount;
     private bool jumpLock;
 
+    private Animator animator;
+    private SpriteRenderer spriteRd;
+
     private LevelEntity Level => LevelSystem.Inst.CurLevel;
     private PlayerInputSystem Inputs => PlayerInputSystem.Inst;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRd = animator.GetComponent<SpriteRenderer>();
         health = maxHealth;
     }
 
@@ -41,6 +47,14 @@ public class PlayerEntity : MonoBehaviour
         if (transform.position.y < -7f)
         {
             Die();
+        }
+
+        bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
+        animator.SetBool("IsRunning", isRunning);
+
+        if (isRunning)
+        {
+            spriteRd.flipX = Mathf.Sign(rb.velocity.x) < 0;
         }
     }
 
@@ -73,6 +87,16 @@ public class PlayerEntity : MonoBehaviour
     {
         health = maxHealth;
         HeartPanel.Inst.SetHeart(health);
+    }
+
+    public Sprite GetSprite()
+    {
+        return spriteRd.sprite;
+    }
+
+    public Vector3 GetSpritePos()
+    {
+        return spriteRd.transform.position;
     }
 
     private void Jump()

@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Capture : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private SpriteRenderer spriteRd;
 
-    // Update is called once per frame
-    void Update()
+    public void SetCapture(PlayerEntity player)
     {
-        
+        transform.position = player.GetSpritePos();
+        spriteRd.sprite = player.GetSprite();
     }
 }
