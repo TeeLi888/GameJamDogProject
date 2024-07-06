@@ -58,6 +58,12 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    public void OnSavePoint()
+    {
+        health = maxHealth;
+        HeartPanel.Inst.SetHeart(health);
+    }
+
     public void OnRespawn()
     {
         rb.velocity = Vector2.zero;
