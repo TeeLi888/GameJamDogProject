@@ -52,7 +52,7 @@ public class PlayerEntity : MonoBehaviour
             Die();
         }
 
-        bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
+        bool isRunning = Mathf.Abs(rb.velocity.x) > 0.25f;
         animator.SetBool("IsRunning", isRunning);
 
         if (isRunning)
@@ -109,6 +109,9 @@ public class PlayerEntity : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         jumpCount++;
         jumpLock = true;
+
+        animator.SetBool("IsGround", false);
+
         TimingSystem.Inst.RunOnce("jumplock", 0.5f, () =>
         {
             jumpLock = false;
@@ -121,6 +124,7 @@ public class PlayerEntity : MonoBehaviour
         bool isHit = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, jumpOnMask);
         if (isHit)
         {
+            animator.SetBool("IsGround", true);
             jumpCount = 0;
         }
     }
