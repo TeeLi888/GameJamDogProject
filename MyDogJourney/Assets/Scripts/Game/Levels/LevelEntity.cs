@@ -9,4 +9,7 @@ public class LevelEntity : MonoBehaviour
     public virtual void Begin() { }
 
     public virtual void Respawn(PlayerEntity player) { }
+    public virtual void ResetLevel(PlayerEntity player) { }
+    public virtual void AttachCapture(Capture capture) { }
+    public virtual void ClearCaptures() { }
 }

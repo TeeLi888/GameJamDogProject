@@ -8,6 +8,9 @@ public class PlayerEntity : MonoBehaviour
     public float jumpForce = 10f;
     public LayerMask jumpOnMask;
 
+    public int health;
+    public int maxHealth = 3;
+
     private Rigidbody2D rb;
     private int jumpCount;
     private bool jumpLock;
@@ -18,6 +21,7 @@ public class PlayerEntity : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -42,12 +46,27 @@ public class PlayerEntity : MonoBehaviour
 
     public void Die()
     {
-        Level.Respawn(this);
+        health--;
+        HeartPanel.Inst.SetHeart(health);
+        if(health <= 0)
+        {
+            Level.ResetLevel(this);
+        }
+        else
+        {
+            Level.Respawn(this);
+        }
     }
 
     public void OnRespawn()
     {
         rb.velocity = Vector2.zero;
+    }
+
+    public void OnLevelReset()
+    {
+        health = maxHealth;
+        HeartPanel.Inst.SetHeart(health);
     }
 
     private void Jump()

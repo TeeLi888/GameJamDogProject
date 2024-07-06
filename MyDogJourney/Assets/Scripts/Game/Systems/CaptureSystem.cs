@@ -16,10 +16,18 @@ public class CaptureSystem : TECSSystem<CaptureSystem>
         capturePool.SetCreateFunc(CreateCaptureGO);
     }
 
-    public void CreateCapture(PlayerEntity player)
+    public Capture CreateCapture(PlayerEntity player)
     {
-        GameObject capture = capturePool.Pop();
-        capture.transform.position = player.transform.position;
+        GameObject captureGo = capturePool.Pop();
+        captureGo.transform.position = player.transform.position;
+        Capture capture = captureGo.GetComponent<Capture>();
+        LevelSystem.Inst.CurLevel.AttachCapture(capture);
+        return capture;
+    }
+
+    public void ReturnCapture(Capture capture)
+    {
+        capturePool.Add(capture.gameObject);
     }
 
     private GameObject CreateCaptureGO()
