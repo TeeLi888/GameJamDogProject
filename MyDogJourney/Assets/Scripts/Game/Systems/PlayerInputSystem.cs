@@ -6,7 +6,8 @@ using TECS;
 public class PlayerInputSystem : TECSMonoSystem<PlayerInputSystem>
 {
     public Vector2 axis;
-    public bool isSpace;
+    public bool isJump;
+    public bool isCapture;
 
     public override void Update()
     {
@@ -15,6 +16,7 @@ public class PlayerInputSystem : TECSMonoSystem<PlayerInputSystem>
         float axisy = Input.GetAxis("Vertical");
         axis = new Vector2(axisx, axisy);
 
-        isSpace = Input.GetKeyDown(KeyCode.Space);
+        isJump = Input.GetKeyDown(KeyCode.Space);
+        isCapture = Input.GetKeyDown(KeyCode.K);
     }
 }

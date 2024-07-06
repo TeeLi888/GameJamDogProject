@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class GameEngine : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public MainGame Game { get; private set; }
+    
+
     void Start()
     {
-
+        Game = new MainGame();
+        Game.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        Game.Update();
     }
 }

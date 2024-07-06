@@ -6,9 +6,14 @@ public class PlayerEntity : MonoBehaviour
 {
     public float speed = 10f;
     public float jumpForce = 10f;
+    public LayerMask jumpOnMask;
 
     private Rigidbody2D rb;
     private int jumpCount;
+    private bool jumpLock;
+
+    private LevelEntity Level => LevelSystem.Inst.CurLevel;
+    private PlayerInputSystem Inputs => PlayerInputSystem.Inst;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,24 +23,51 @@ public class PlayerEntity : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        rb.velocity = new Vector3(speed * PlayerInputSystem.Inst.axis.x, rb.velocity.y);
-        if (PlayerInputSystem.Inst.isSpace)
+        rb.velocity = new Vector3(speed * Inputs.axis.x, rb.velocity.y);
+        if (Inputs.isJump)
         {
             Jump();
         }
+
+        if (Inputs.isCapture)
+        {
+            CaptureSystem.Inst.CreateCapture(this);
+        }
+
+        if (transform.position.y < -7f)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Level.Respawn(this);
+    }
+
+    public void OnRespawn()
+    {
+        rb.velocity = Vector2.zero;
     }
 
     private void Jump()
     {
         if (jumpCount > 0) return;
+        if (jumpLock) return;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         jumpCount++;
+        jumpLock = true;
+        TimingSystem.Inst.RunOnce("jumplock", 0.5f, () =>
+        {
+            jumpLock = false;
+        });
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        Vector3 offset = (Vector3)collision.GetContact(0).point - transform.position;
-        if(Vector3.Angle(offset, Vector3.down) < 2f)
+        if (jumpLock) return;
+        bool isHit = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, jumpOnMask);
+        if (isHit)
         {
             jumpCount = 0;
         }
