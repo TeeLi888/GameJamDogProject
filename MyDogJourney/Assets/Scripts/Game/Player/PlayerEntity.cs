@@ -43,8 +43,9 @@ public class PlayerEntity : MonoBehaviour
         {
             UISystem.Inst.PlayCutPictureEffect(()=>
             {
-                CaptureSystem.Inst.CreateCapture(this);
+                
             });
+            CaptureSystem.Inst.CreateCapture(this);
         }
 
         if (transform.position.y < -7f)

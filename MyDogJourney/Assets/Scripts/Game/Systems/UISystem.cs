@@ -10,7 +10,7 @@ public class UISystem : TECSMonoSystem<UISystem>
 {
     [SerializeField] private Image cutPicture;
 
-    public void PlayCutPictureEffect(Action callback)
+    public void PlayCutPictureEffect(Action callback = null)
     {
         cutPicture.gameObject.SetActive(true);
         cutPicture.color=new Color(1f, 1f, 1f,0.5F);
