@@ -6,13 +6,14 @@ public class Frame : MonoBehaviour
 {
     [SerializeField] private GameObject sceneGo;
     [SerializeField] private Collider2D sceneCollid;
+    [SerializeField] private SpriteRenderer bodyRd;
 
     private void Start()
     {
         Activate(false);
     }
 
-    public void Activate(bool isShow)
+    public virtual void Activate(bool isShow)
     {
         var allSprites = sceneGo.GetComponentsInChildren<SpriteRenderer>();
         foreach (var sprite in allSprites) 
@@ -20,7 +21,12 @@ public class Frame : MonoBehaviour
             sprite.color = isShow ? Color.white : new Color(1f, 1f, 1f, 0.6f);
         }
 
-        sceneCollid.enabled = isShow;
+        bodyRd.color = isShow ? Color.white : new Color(1f, 1f, 1f, 0.78f);
+
+        if (sceneCollid)
+        {
+            sceneCollid.enabled = isShow;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
