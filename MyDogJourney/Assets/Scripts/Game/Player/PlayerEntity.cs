@@ -147,6 +147,12 @@ public class PlayerEntity : MonoBehaviour
         animator.speed = 0;
     }
 
+    public void SetToTop()
+    {
+        spriteRd.sortingLayerName = "Top";
+        spriteRd.sortingOrder = 2;
+    }
+
     private void Jump()
     {
         PlayAudio(2);

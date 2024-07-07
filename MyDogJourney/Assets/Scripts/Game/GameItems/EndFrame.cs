@@ -9,7 +9,8 @@ public class EndFrame : Frame
         base.Activate(isShow);
         if (isShow)
         {
-            EndSceneSystem.Inst.Play();
+            EndSceneSystem.Inst.Play(transform);
+            bodyRd.enabled = false;
         }
     }
 }

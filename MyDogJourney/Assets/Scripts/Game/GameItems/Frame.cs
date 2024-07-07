@@ -6,7 +6,7 @@ public class Frame : MonoBehaviour
 {
     [SerializeField] private GameObject sceneGo;
     [SerializeField] private Collider2D sceneCollid;
-    [SerializeField] private SpriteRenderer bodyRd;
+    [SerializeField] protected SpriteRenderer bodyRd;
     [SerializeField] private GameObject collidGo;
 
     private void Start()
