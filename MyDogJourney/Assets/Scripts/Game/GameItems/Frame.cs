@@ -7,6 +7,7 @@ public class Frame : MonoBehaviour
     [SerializeField] private GameObject sceneGo;
     [SerializeField] private Collider2D sceneCollid;
     [SerializeField] private SpriteRenderer bodyRd;
+    [SerializeField] private GameObject collidGo;
 
     private void Start()
     {
@@ -26,6 +27,11 @@ public class Frame : MonoBehaviour
         if (sceneCollid)
         {
             sceneCollid.enabled = isShow;
+        }
+
+        if (collidGo)
+        {
+            collidGo.gameObject.SetActive(isShow);
         }
     }
 

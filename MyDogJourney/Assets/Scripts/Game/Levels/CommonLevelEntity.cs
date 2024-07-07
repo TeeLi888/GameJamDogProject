@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class CommonLevelEntity : LevelEntity
     {
         base.ResetLevel(player);
         ClearCaptures();
+        ResetFrames();
         player.OnLevelReset();
         Respawn(player);
     }
@@ -50,5 +52,16 @@ public class CommonLevelEntity : LevelEntity
     {
         base.OnSavePoint(point);
         CurSavePoint = point;
+    }
+
+    private void ResetFrames()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            if(transform.GetChild(i).TryGetComponent(out Frame frame))
+            {
+                frame.Activate(false);
+            }
+        }
     }
 }
