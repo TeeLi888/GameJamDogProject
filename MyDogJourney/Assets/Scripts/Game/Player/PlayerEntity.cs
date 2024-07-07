@@ -9,6 +9,9 @@ public class PlayerEntity : MonoBehaviour
     public float jumpForce = 10f;
     public LayerMask jumpOnMask;
 
+    public AudioSource audioSource;
+    public List<AudioClip> clips = new List<AudioClip>();
+
     public int health;
     public int maxHealth = 3;
 
@@ -43,6 +46,8 @@ public class PlayerEntity : MonoBehaviour
 
         if (Inputs.isCapture)
         {
+            PlayAudio(0);
+
             UISystem.Inst.PlayCutPictureEffect();
             CaptureSystem.Inst.CreateCapture(this);
             if (frame)
@@ -51,7 +56,7 @@ public class PlayerEntity : MonoBehaviour
             }
         }
 
-        if (transform.position.y < -7f)
+        if (transform.position.y < -5.5f)
         {
             Die();
         }
@@ -65,8 +70,22 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    private void PlayAudio(int index)
+    {
+        if (clips[index])
+        {
+            audioSource.clip = clips[index];
+            audioSource.Play();
+        }
+    }
+
+    private void StopAudio()
+    {
+        audioSource.Stop();
+    }
     public void Die()
     {
+        PlayAudio(1);
         health--;
         HeartPanel.Inst.SetHeart(health);
         if(health <= 0)
@@ -130,6 +149,7 @@ public class PlayerEntity : MonoBehaviour
 
     private void Jump()
     {
+        PlayAudio(2);
         if (jumpCount > 0) return;
         if (jumpLock) return;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
