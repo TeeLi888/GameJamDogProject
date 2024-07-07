@@ -101,6 +101,11 @@ public class PlayerEntity : MonoBehaviour
         return spriteRd.sprite;
     }
 
+    public bool GetFlip()
+    {
+        return spriteRd.flipX;
+    }
+
     public Vector3 GetSpritePos()
     {
         return spriteRd.transform.position;

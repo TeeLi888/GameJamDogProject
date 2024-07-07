@@ -10,5 +10,6 @@ public class Capture : MonoBehaviour
     {
         transform.position = player.GetSpritePos();
         spriteRd.sprite = player.GetSprite();
+        spriteRd.flipX = player.GetFlip();
     }
 }
