@@ -116,6 +116,13 @@ public class PlayerEntity : MonoBehaviour
         this.frame = null;
     }
 
+    public void Freeze()
+    {
+        rb.velocity = Vector2.zero;
+        rb.isKinematic = true;
+        animator.speed = 0;
+    }
+
     private void Jump()
     {
         if (jumpCount > 0) return;

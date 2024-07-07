@@ -9,14 +9,26 @@ public class PlayerInputSystem : TECSMonoSystem<PlayerInputSystem>
     public bool isJump;
     public bool isCapture;
 
+    public bool locked = false;
+
     public override void Update()
     {
         base.Update();
-        float axisx = Input.GetAxis("Horizontal");
-        float axisy = Input.GetAxis("Vertical");
-        axis = new Vector2(axisx, axisy);
 
-        isJump = Input.GetKeyDown(KeyCode.Space);
-        isCapture = Input.GetMouseButtonDown(0);
+        if (locked)
+        {
+            axis = Vector2.zero;
+            isJump = false;
+            isCapture = false;
+        }
+        else
+        {
+            float axisx = Input.GetAxis("Horizontal");
+            float axisy = Input.GetAxis("Vertical");
+            axis = new Vector2(axisx, axisy);
+
+            isJump = Input.GetKeyDown(KeyCode.Space);
+            isCapture = Input.GetMouseButtonDown(0);
+        }
     }
 }
